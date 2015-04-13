@@ -39,7 +39,7 @@ public class RestClientServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Client client = Client.create();
-		WebResource webResource = client.resource("http://localhost:8080/FaizRestProject/api/v1/status");
+		WebResource webResource = client.resource("http://localhost:8080/FaizRestProject/api/v2/status/empdb");
 		ClientResponse clientResponse = webResource.accept("text/html").get(ClientResponse.class);
 		
 		if(clientResponse.getStatus() == 200){
