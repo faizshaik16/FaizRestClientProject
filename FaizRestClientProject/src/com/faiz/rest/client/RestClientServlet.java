@@ -1,6 +1,7 @@
 package com.faiz.rest.client;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -38,13 +39,14 @@ public class RestClientServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		PrintWriter out = response.getWriter();
 		Client client = Client.create();
 		WebResource webResource = client.resource("http://localhost:8080/FaizRestProject/api/v2/status/empdb");
 		ClientResponse clientResponse = webResource.accept("text/html").get(ClientResponse.class);
 		
 		if(clientResponse.getStatus() == 200){
 			String output = clientResponse.getEntity(String.class);
-			System.out.println(" Client Respone = " + output);
+			out.println(output);
 				
 		}
 	}
