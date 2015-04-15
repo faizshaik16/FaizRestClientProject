@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.ws.rs.core.Cookie;
 
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
@@ -52,10 +53,13 @@ public class RestClientServlet extends HttpServlet {
 		Form form = new Form();
 		form.add("username", userName);
 		
+		Cookie c = new Cookie("email", emailId);
+		
 		//WebResource webResource = client.resource("http://localhost:8080/FaizRestProject/api/v2/status/empdb");
 		WebResource webResource = client.resource("http://localhost:8080/FaizRestProject/api/v3/status/fp");
 		//ClientResponse clientResponse = webResource.accept("text/html").get(ClientResponse.class);
-		ClientResponse clientResponse = webResource.accept("text/html").post(ClientResponse.class, form);
+		//ClientResponse clientResponse = webResource.accept("text/html").post(ClientResponse.class, form);
+		ClientResponse clientResponse = webResource.accept("text/html").cookie(c).post(ClientResponse.class, form);
 		
 		if(clientResponse.getStatus() == 200){
 			String output = clientResponse.getEntity(String.class);
